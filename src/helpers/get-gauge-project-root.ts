@@ -5,7 +5,7 @@ import * as fs from 'fs';
 export function getGaugeProjectRoot() {
   const result = shelljs.exec('npm prefix');
   if (result.code === 0) {
-    const npmPrefixPath = result.stdout.split('\n')[0];
+    const npmPrefixPath = result.stdout.substring(0, result.stdout.length - 1);
     if (npmPrefixPath.endsWith('/gauge')) {
       return npmPrefixPath;
     } else {
