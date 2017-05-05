@@ -1,0 +1,25 @@
+{
+  "name": "gauge-web-steps",
+  "version": "0.0.1",
+  "description": "Gauge Web Steps - default webdriver steps to be used to be used in e2e tests ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abner Oliveira",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/expect": "^1.20.1",
+    "@types/node": "^7.0.18",
+    "@types/shelljs": "^0.7.1",
+    "@types/webdriverio": "^4.7.0",
+    "ts-node": "^3.0.4",
+    "typescript": "^2.3.2"
+  },
+  "dependencies": {
+    "@types/jest": "^19.2.3",
+    "expect": "^1.20.2",
+    "shelljs": "^0.7.7",
+    "webdriverio": "^4.8.0"
+  }
+}
