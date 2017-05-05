@@ -19,6 +19,7 @@
   "dependencies": {
     "@types/jest": "^19.2.3",
     "expect": "^1.20.2",
+    "gauge-npm": "^1.0.22",
     "shelljs": "^0.7.7",
     "webdriverio": "^4.8.0"
   }
