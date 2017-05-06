@@ -1,10 +1,34 @@
 import { BasePageObject } from './base-page-object';
 import * as webdriverio from 'webdriverio';
+
+import * as url from 'url';
+
+
 export class SiteMap {
   private browser: webdriverio.Client<void>;
   private static _instance: SiteMap = null;
   pages: { [nome: string]: BasePageObject } = {};
-  baseUrl: string = 'http://localhost:4200';
+
+  private baseUri: url.Url;
+
+  constructor(private _baseUrl: string = 'http://localhost:4200') {
+    this.baseUri = url.parse(_baseUrl);
+  }
+
+  get baseUrl() {
+    return this.getBaseUrl();
+  }
+
+  getBaseUrl() {
+    return this._baseUrl;
+  }
+
+
+  addPage(name: string, object: BasePageObject): SiteMap {
+    this.pages[name] = object;
+    object.setMap(this);
+    return this;
+  }
 
   setBrowser(browser: webdriverio.Client<void>): SiteMap {
     this.browser = browser;
@@ -15,19 +39,24 @@ export class SiteMap {
     return this.browser;
   }
 
-  getUrl(pageName: string) {
+  resolveUrl(pathOrUrl: string): string {
+    let resolvedUrl = url.resolve(this._baseUrl, pathOrUrl);
+    return resolvedUrl;
+  }
+
+  urlFor(pageName: string) {
     if (this.pages[pageName]) {
-      return this.baseUrl + (this.pages[pageName].path || '/');
+      return this.pages[pageName].getUrl();
     } else {
       throw `PageObject not found with name'${pageName}'!`;
     }
   }
 
-  getPageObject<T>(apgeName: string): T {
-    if (this.pages[apgeName]) {
-      return <any>this.pages[apgeName];
+  getPageObject<T extends BasePageObject>(pageName: string): T {
+    if (this.pages[pageName]) {
+      return <any>this.pages[pageName];
     } else {
-      throw `PageObject not found with name '${apgeName}'!`;
+      throw `PageObject not found with name '${pageName}'!`;
     }
   }
 

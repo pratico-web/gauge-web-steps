@@ -1,41 +1,54 @@
 import * as webdriverio from 'webdriverio';
+import { SiteMap } from './site-map';
 
 
 export type Element = webdriverio.Client<webdriverio.RawResult<webdriverio.Element>>;
 
+/**
+ * Represents a PageObject to be used to navigate using webdriverio
+ *
+ * @export
+ * @class BasePageObject
+ */
 export class BasePageObject {
 
-  path: string = '';
-
-  constructor(protected url: string, protected browser?: webdriverio.Client<void>) {
+  constructor(protected url: string, protected map?: SiteMap) {
   }
 
-  setBrowser(browser: webdriverio.Client<void>) {
-    this.browser = browser;
+  getUrl(): string {
+    return (this.map) ? this.map.resolveUrl(this.url) : this.url;
   }
 
-  navigateTo(path: string = ''): webdriverio.Client<boolean> {
-    let urlTo = this.url + path;
-    return this.browser.url(urlTo).then(() => {
-      return this.browser.getUrl().then(currentUrl => new RegExp(urlTo).test(currentUrl));
+  setMap(map: SiteMap) {
+    this.map = map;
+  }
+
+  getBrowser(): webdriverio.Client<void> {
+    return this.map.getBrowser();
+  }
+
+  navigateTo(path: string = null): webdriverio.Client<boolean> {
+    let urlTo = this.map.resolveUrl(path ? path : this.url );
+    return this.getBrowser().url(urlTo).then(() => {
+      return this.getBrowser().getUrl().then(currentUrl => new RegExp(urlTo).test(currentUrl));
     });
   }
 
   clickOnLink(text: string) {
-    this.browser.click(`a=${text}`);
+    this.getBrowser().click(`a=${text}`);
   }
 
   checkIsVisible(selector: string): webdriverio.Client<boolean> {
-    return this.browser.isVisible(selector);
+    return this.getBrowser().isVisible(selector);
   }
 
   getInnerInput(id: string) {
-    return this.browser.element('#' + id + ' input');
+    return this.getBrowser().element('#' + id + ' input');
   }
 
   typeValue(id: string, value: string) {
     let fieldSelector = '#' + id + ' input';
-    return this.browser.addValue(fieldSelector, value);
+    return this.getBrowser().addValue(fieldSelector, value);
   }
 
   selecionarOpcaoSelect(id: string, option: string) {
@@ -47,19 +60,19 @@ export class BasePageObject {
   }
 
   clickOnElement(id: string) {
-    return this.browser.click('#' + id).pause(5000);
+    return this.getBrowser().click('#' + id).pause(5000);
   }
 
   findButton(text: string): Element {
-    return this.browser.element(`button=${text}`);
+    return this.getBrowser().element(`button=${text}`);
   }
 
   clickOnButton(text: string) {
-    return this.browser.click(`button=${text}`);
+    return this.getBrowser().click(`button=${text}`);
   }
 
   waitSomeSeconds(seconds: number) {
-    return this.browser.pause(seconds * 1000);
+    return this.getBrowser().pause(seconds * 1000);
   }
 
 }

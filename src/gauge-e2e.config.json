@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/pratico-web/gauge-web-steps/master/schemas/gauge-definition.schema.json",
+  "pages": [
+    {
+      "name": "page1",
+      "url": "http://localhost:8100",
+      "pageObjectClass": "",
+      "elements": [
+        {
+          "name": "botaoSalvar",
+          "id": "#saveButton"
+        }
+      ]
+    }
+  ]
+}

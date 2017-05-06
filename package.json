@@ -4,7 +4,8 @@
   "description": "Gauge Web Steps - default webdriver steps to be used to be used in e2e tests ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll --notify",
+    "ci": "jest --coverage"
   },
   "author": "Abner Oliveira",
   "license": "MIT",
@@ -13,6 +14,8 @@
     "@types/node": "^7.0.18",
     "@types/shelljs": "^0.7.1",
     "@types/webdriverio": "^4.7.0",
+    "jest": "^19.0.2",
+    "ts-jest": "^19.0.14",
     "ts-node": "^3.0.4",
     "typescript": "^2.3.2"
   },
@@ -21,7 +24,20 @@
     "ajv": "^5.0.1",
     "expect": "^1.20.2",
     "gauge-npm": "^1.0.22",
+    "require-dir": "^0.3.1",
     "shelljs": "^0.7.7",
     "webdriverio": "^4.8.0"
+  },
+  "jest": {
+    "watch": true,
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(src/.*\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
   }
 }

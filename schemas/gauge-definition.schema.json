@@ -24,8 +24,7 @@
     "pageObjectDefinition": {
       "required": [
         "url",
-        "name",
-        "pageObjectClass"
+        "name"
       ],
       "properties": {
         "url": {
@@ -48,15 +47,22 @@
           }
         }
       }
-    }
-  },
-  "type": "object",
-  "properties": {
-    "pages": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/pageObjectDefinition"
+    },
+    "gaugeE2EDefinition": {
+      "type": "object",
+      "required": [
+        "pages"
+      ],
+      "properties": {
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/pageObjectDefinition"
+          }
+        }
       }
     }
-  }
+  },
+
+  "$ref": "#/definitions/gaugeE2EDefinition"
 }
