@@ -7,9 +7,6 @@
         "id": {
           "type": "string"
         },
-        "name": {
-          "type": "string"
-        },
         "selector": {
           "type": "string"
         },
@@ -41,9 +38,9 @@
           "type": "string"
         },
         "elements": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/pageElementDefinition"
+          "type": "object",
+          "patternProperties": {
+             ".{1,}": { "$ref": "#/definitions/pageElementDefinition" }
           }
         }
       }
