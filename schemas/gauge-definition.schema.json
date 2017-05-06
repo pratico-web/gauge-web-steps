@@ -61,10 +61,13 @@
       ],
       "properties": {
         "pages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/pageObjectDefinition"
-          }
+          "type": "object",
+          "patternProperties": {
+            ".{1,}": {
+              "$ref": "#/definitions/pageObjectDefinition"
+            }
+          },
+          "additionalProperties": false
         }
       }
     }
