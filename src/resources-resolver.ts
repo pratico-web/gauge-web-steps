@@ -1,13 +1,20 @@
 import * as ajv from 'ajv';
 import * as path from 'path';
-import { GaugeProjectDefinition } from './models/gauge-project-definition';
+import { GaugeWebStepsPageDefinition } from './models/page-definition';
 import { GAUGE_DEFINITION_SCHEMA_FILE_NAME } from './models/constants';
+import { GaugeWebStepsProjectDefinition } from './models/project-definition';
+import { BasePageObject } from './base-page-object';
 
 export abstract class ResourcesResolver {
-  abstract getRootFolder(): string;
-  abstract loadSteps(): void;
-  abstract loadPageObjects(): void;
-  abstract getGaugeProjectDefinition(): GaugeProjectDefinition;
+  loadPageObjects(): { [name: string]: BasePageObject } {
+    const result: { [name: string]: BasePageObject } = {};
+    Object.keys(this.getGaugeProjectDefinition().pages).forEach((pageName: string) => {
+      const page: GaugeWebStepsPageDefinition = this.getGaugeProjectDefinition().pages[pageName];
+      result[pageName] = new BasePageObject(page.url);
+      result[pageName].setElements(page.elements);
+    })
+    return result;
+  }
 
   validateDefinition(obj: any) {
     let schema = require(path.join(__dirname, './', GAUGE_DEFINITION_SCHEMA_FILE_NAME));
@@ -18,4 +25,8 @@ export abstract class ResourcesResolver {
       throw new Error(`Not a valid gauge-e2e schema. See errors bellow: \n${JSON.stringify(ajvObj.errors, null, '\t')}`);
     }
   }
+
+  abstract loadSteps(): void;
+  abstract getRootFolder(): string;
+  abstract getGaugeProjectDefinition(): GaugeWebStepsProjectDefinition;
 }

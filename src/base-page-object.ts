@@ -1,5 +1,6 @@
 import * as webdriverio from 'webdriverio';
 import { SiteMap } from './site-map';
+import { GaugeWebStepsElementDefinition } from './models/element-definition';
 
 
 export type Element = webdriverio.Client<webdriverio.RawResult<webdriverio.Element>>;
@@ -12,7 +13,13 @@ export type Element = webdriverio.Client<webdriverio.RawResult<webdriverio.Eleme
  */
 export class BasePageObject {
 
+  private mappedElements: { [name: string]: GaugeWebStepsElementDefinition };
+
   constructor(protected url: string, protected map?: SiteMap) {
+  }
+
+  setElements(elements: { [name: string]: GaugeWebStepsElementDefinition }) {
+    this.mappedElements = elements;
   }
 
   getUrl(): string {

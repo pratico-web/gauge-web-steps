@@ -26,10 +26,6 @@ export class FsResourcesResolver extends ResourcesResolver {
     requireDir(path.join(this.rootFolder, '/steps'));
   }
 
-  loadPageObjects(): void {
-    this.getGaugeProjectDefinition()
-  }
-
   getGaugeProjectDefinition(): GaugeProjectDefinition {
     const definitionFileName = path.join(this.rootFolder, GAUGE_DEFINITION_FILE_NAME);
     if (fs.existsSync(definitionFileName)) {
