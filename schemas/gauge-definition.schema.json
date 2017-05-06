@@ -25,8 +25,7 @@
     },
     "pageObjectDefinition": {
       "required": [
-        "url",
-        "name"
+        "url"
       ],
       "properties": {
         "url": {
@@ -62,6 +61,7 @@
       "properties": {
         "pages": {
           "type": "object",
+          "description": "Pages definition of the Gauge E2E Project. Each property maps to one page",
           "patternProperties": {
             ".{1,}": {
               "$ref": "#/definitions/pageObjectDefinition"
