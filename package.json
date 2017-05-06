@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@types/jest": "^19.2.3",
+    "ajv": "^5.0.1",
     "expect": "^1.20.2",
     "gauge-npm": "^1.0.22",
     "shelljs": "^0.7.7",

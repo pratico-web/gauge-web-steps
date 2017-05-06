@@ -1,0 +1,37 @@
+
+{
+  "title": "JSON schema for the Gauge E2e Steps Project",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "pageObjectDefinition": {
+      "required": ["url", "name", "pageObjectClass"],
+      "properties": {
+        "url": {
+          "description": "The uri pointing to the page",
+          "type": "string",
+          "format": "uri"
+        },
+        "name": {
+          "description": "The page object name",
+          "type": "string"
+        },
+        "pageObjectClass": {
+          "description": "The path of the pageObject class",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "pages": {
+      "type":"array",
+      "items": {
+        "type": "object",
+        "allOf": [
+          {"$ref": "#/definitions/pageObjectDefinition"}
+        ]
+      }
+    }
+  }
+}
