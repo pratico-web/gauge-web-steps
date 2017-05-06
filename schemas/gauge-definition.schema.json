@@ -40,7 +40,7 @@
         "elements": {
           "type": "object",
           "patternProperties": {
-             ".{1,}": { "$ref": "#/definitions/pageElementDefinition" }
+             ".{1,}": { "type": "object", "$ref": "#/definitions/pageElementDefinition" }
           }
         }
       }
