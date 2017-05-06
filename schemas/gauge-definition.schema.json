@@ -3,17 +3,22 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
     "pageElementDefinition": {
+      "description": "Describes a page element",
       "properties": {
         "id": {
+          "description": "The id of the DOM Element",
           "type": "string"
         },
         "selector": {
+          "description": "The css selector which mathes to the DOM Element",
           "type": "string"
         },
         "text": {
+          "description": "The text inside the DOM Element",
           "type": "string"
         },
         "tagName": {
+          "description": "The tagName of an DOM Element or a Set of DOM Elements",
           "type": "string"
         }
       }
@@ -39,9 +44,9 @@
         },
         "elements": {
           "type": "object",
+          "description": "The page elements mapped in the webpage",
           "patternProperties": {
             ".{1,}": {
-              "type": "object",
               "$ref": "#/definitions/pageElementDefinition"
             }
           },
