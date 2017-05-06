@@ -39,15 +39,13 @@
         },
         "elements": {
           "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/pageElementDefinition"
-          },
           "patternProperties": {
             ".{1,}": {
               "type": "object",
               "$ref": "#/definitions/pageElementDefinition"
             }
-          }
+          },
+          "additionalProperties": false
         }
       }
     },
