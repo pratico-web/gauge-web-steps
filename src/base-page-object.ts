@@ -66,8 +66,20 @@ export class BasePageObject {
       .click('span.button-inner=OK');
   }
 
-  clickOnElement(id: string) {
-    return this.getBrowser().click('#' + id).pause(5000);
+  getElement(elementName: string) {
+    return this.getBrowser().element(this.getSelectorForElement(elementName));
+  }
+
+  clickOnElement(elementName: string) {
+    return this.getBrowser().element(this.getSelectorForElement(elementName)).click();
+  }
+
+  typeOnElement(elementName: string, value: string) {
+    this.getElement(elementName).addValue(value);
+  }
+
+  setValue(elementName: string, value: string) {
+    this.getElement(elementName).setValue(value);
   }
 
   findButton(text: string): Element {
@@ -82,4 +94,21 @@ export class BasePageObject {
     return this.getBrowser().pause(seconds * 1000);
   }
 
+  getSelectorForElement(elementName: string) {
+    let selector = '';
+    if (this.mappedElements[elementName]) {
+      let el = this.mappedElements[elementName];
+      if (el.selector) {
+        selector = el.selector;
+      } else if (el.id) {
+        selector = `#${el.id}`
+      } else {
+        selector = el.tagName;
+      }
+      if (el.text) {
+        selector = `${selector}*=${el.text}`;
+      }
+    }
+    return selector;
+  }
 }

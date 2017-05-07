@@ -81,7 +81,7 @@ export class WebDriverIOHelper {
   // então, tivemos que escrever da forma abaixo para evitar que o retorno do método init (que não representa erro)
   // seja passado para o done (que espera um parâmetro de erro)
   init(done: Function) {
-    this.client.init().then(() => done());
+    this.client.init().then(() => done()).catch(error => console.log('Error initializing wdio: ' + error));
   }
 
   // ver explicação no método init

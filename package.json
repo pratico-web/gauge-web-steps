@@ -1,35 +1,41 @@
 {
-  "name": "gauge-web-steps",
-  "version": "0.0.1",
+  "name": "@pratico/gauge-web-steps",
+  "version": "0.0.6",
   "description": "Gauge Web Steps - default webdriver steps to be used to be used in e2e tests ",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "test": "jest --watchAll --notify",
-    "ci": "jest --coverage"
+    "ci": "jest --coverage",
+    "prepublish": "rimraf dist && tsc",
+    "postinstall": "node dist/postinstall.js"
   },
   "author": "Abner Oliveira",
   "license": "MIT",
   "devDependencies": {
-    "@types/expect": "^1.20.1",
+    "@types/chalk": "^0.4.31",
     "@types/node": "^7.0.18",
     "@types/shelljs": "^0.7.1",
-    "@types/webdriverio": "^4.7.0",
     "jest": "^19.0.2",
+    "rimraf": "^2.6.1",
     "ts-jest": "^19.0.14",
     "ts-node": "^3.0.4",
     "typescript": "^2.3.2"
   },
   "dependencies": {
+    "@types/expect": "^1.20.1",
     "@types/jest": "^19.2.3",
+    "@types/webdriverio": "^4.7.0",
     "ajv": "^5.0.1",
+    "chalk": "^1.1.3",
     "expect": "^1.20.2",
-    "gauge-npm": "^1.0.22",
+    "gauge-npm": "^1.0.26",
     "require-dir": "^0.3.1",
     "shelljs": "^0.7.7",
-    "webdriverio": "^4.8.0"
+    "webdriverio": "^4.8.0",
+    "yarn-bin-fix": "~0.1.15"
   },
   "jest": {
-    "watch": true,
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },

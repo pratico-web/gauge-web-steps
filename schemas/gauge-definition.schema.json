@@ -1,6 +1,5 @@
 {
   "title": "JSON schema for the Gauge E2e Steps Project",
-  "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
     "pageElementDefinition": {
       "description": "Describes a page element",
