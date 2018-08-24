@@ -3,13 +3,12 @@ import * as webdriverio from 'webdriverio';
 
 import * as url from 'url';
 
-
 export class SiteMap {
   private browser: webdriverio.Client<void>;
   private static _instance: SiteMap = null;
   pages: { [nome: string]: BasePageObject } = {};
 
-  private baseUri: url.Url;
+  private baseUri: url.Url = null;
 
   constructor(private _baseUrl: string = 'http://localhost:4200') {
     this.baseUri = url.parse(_baseUrl);
@@ -20,9 +19,12 @@ export class SiteMap {
   }
 
   getBaseUrl() {
-    return this._baseUrl;
+    return this.baseUri;
   }
 
+  getBaseUri() {
+    return this.baseUri;
+  }
 
   addPage(name: string, object: BasePageObject): SiteMap {
     this.pages[name] = object;
@@ -66,5 +68,4 @@ export class SiteMap {
     }
     return SiteMap._instance;
   }
-
 }
