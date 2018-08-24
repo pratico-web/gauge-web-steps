@@ -1,6 +1,6 @@
 {
-  "name": "@pratico/gauge-web-steps",
-  "version": "0.0.7",
+  "name": "gauge-web-steps",
+  "version": "0.0.8",
   "description": "Gauge Web Steps - default webdriver steps to be used to be used in e2e tests ",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

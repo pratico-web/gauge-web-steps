@@ -26,12 +26,10 @@ export function setup(gauge: Gauge) {
     console.log('BEFORE Project Loader!!');
   }
   // loads the pageObjects and the tests steps
-  new GaugeWebStepsProjectLoader(siteMap)
-    .load(gauge, () => {
-      gauge.siteMap = siteMap;
-      gauge.expect = expect;
-    })
-    .loadSteps(gauge);
+  new GaugeWebStepsProjectLoader(siteMap).load(gauge, () => {
+    gauge.siteMap = siteMap;
+    gauge.expect = expect;
+  });
 
   if (process.env.DEBUG == 'true') {
     console.log('AFTER Project Loader!!');

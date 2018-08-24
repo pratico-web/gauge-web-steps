@@ -2,7 +2,6 @@ import { Gauge } from './models/gauge';
 export {
   GAUGE_DEFINITION_SCHEMA_FILE_NAME,
   GAUGE_PROJECT_DEFINITION_FILE_NAME,
-  GAUGE_STEPS_FOLDER,
   GAUGE_PROJECT_DEFINITION_SCHEMA_NAME,
 } from './models/constants';
 export { GaugeWebStepsElementDefinition } from './models/element-definition';
@@ -15,5 +14,5 @@ export { GaugeWebStepsProjectLoader } from './project-loader';
 export { SiteMap } from './site-map';
 
 module.exports = function(gauge: Gauge) {
-  require('./init')(gauge);
+  require('./init').setup(gauge);
 };

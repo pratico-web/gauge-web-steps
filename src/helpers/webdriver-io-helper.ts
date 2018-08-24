@@ -3,34 +3,32 @@ import * as shelljs from 'shelljs';
 
 //TODO: avaliar migrar esta classe para um pacote node à parte, onde seria reaproveitável também pelo perdcomp
 export class WebDriverIOHelper {
-
   private client: webdriverio.Client<void>;
   options: webdriverio.Options;
 
   private binaryPath: string;
 
-  private browsersConfig = <any> {
+  private browsersConfig = <any>{
     chromium: {
       binaryName: 'chromium-browser',
       macOSPath: '/Applications/Chromium.app/Contents/MacOS/Chromium',
-      capabilitiesBrowserName: 'chrome'
+      capabilitiesBrowserName: 'chrome',
     },
     firefox: {
       binaryName: 'firefox-browser',
-      macOSPath: '/Applications/Firefox.app/Contents/MacOS/firefox'
+      macOSPath: '/Applications/Firefox.app/Contents/MacOS/firefox',
     },
     safari: {
       binaryName: 'safari-browser',
-      macOSPath: '/usr/bin/safaridriver'
+      macOSPath: '/usr/bin/safaridriver',
     },
     chrome: {
       binaryName: 'chrome-browser',
-      macOSPath: '/Applications/Chrome.app/Contents/MacOS/Chrome'
-    }
+      macOSPath: '/Applications/Chrome.app/Contents/MacOS/Chrome',
+    },
   };
 
-  configBrowser(browserName : string) {
-
+  configBrowser(browserName: string) {
     let browserConfig = this.browsersConfig[browserName];
 
     if (browserConfig) {
@@ -47,27 +45,26 @@ export class WebDriverIOHelper {
   }
 
   constructor(browserName: string = 'chromium', browserOptions: {} = {}) {
-
     this.configBrowser(browserName);
 
     let capabilitiesBrowserName = this.browsersConfig[browserName].capabilitiesBrowserName || browserName;
 
-    let capabilities = <any> { browserName: capabilitiesBrowserName };
+    let capabilities = <any>{ browserName: capabilitiesBrowserName };
     capabilities[capabilitiesBrowserName + 'Options'] = browserOptions;
 
     if (this.binaryPath) {
       capabilities[capabilitiesBrowserName + 'Options'] = {
         binary: this.binaryPath,
-        args: ['--no-sandbox']
+        args: ['--no-sandbox'],
       };
     }
 
     this.options = {
-      logLevel: 'debug',
+      // logLevel: 'debug',
       coloredLogs: true,
       desiredCapabilities: capabilities,
-      waitforTimeout: 3000
-    }
+      waitforTimeout: 3000,
+    };
     this.client = webdriverio.remote(this.options);
   }
 
@@ -81,7 +78,10 @@ export class WebDriverIOHelper {
   // então, tivemos que escrever da forma abaixo para evitar que o retorno do método init (que não representa erro)
   // seja passado para o done (que espera um parâmetro de erro)
   init(done: Function) {
-    this.client.init().then(() => done()).catch(error => console.log('Error initializing wdio: ' + error));
+    this.client
+      .init()
+      .then(() => done())
+      .catch(error => console.log('Error initializing wdio: ' + error));
   }
 
   // ver explicação no método init

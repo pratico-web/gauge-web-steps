@@ -5,7 +5,6 @@ import { GaugeWebStepsPageDefinition } from './models/page-definition';
 import {
   GAUGE_DEFINITION_SCHEMA_FILE_NAME,
   GAUGE_PROJECT_DEFINITION_FILE_NAME,
-  GAUGE_STEPS_FOLDER,
   GAUGE_PROJECT_DEFINITION_SCHEMA_NAME,
 } from './models/constants';
 import { GaugeWebStepsProjectDefinition } from './models/project-definition';
@@ -13,8 +12,6 @@ import { BasePageObject } from './base-page-object';
 import { getGaugeProjectRoot } from './helpers/get-gauge-project-root';
 import { SiteMap } from './site-map';
 import { Gauge } from './models/gauge';
-
-const requireDir = <any>require('require-dir');
 
 /**
  * Load the pageObjects into the siteMap and also loads the gauge steps
@@ -47,7 +44,6 @@ export class GaugeWebStepsProjectLoader {
   load(gauge: Gauge, callback: Function): GaugeWebStepsProjectLoader {
     this.loadPageObjects();
     callback();
-    this.loadSteps(gauge);
     return this;
   }
 
@@ -73,10 +69,6 @@ export class GaugeWebStepsProjectLoader {
         `Not a valid gauge-e2e schema. See errors bellow: \n${JSON.stringify(ajvObj.errors, null, '\t')}`
       );
     }
-  }
-
-  loadSteps(gauge: Gauge): void {
-    requireDir(path.join(this.rootFolder, GAUGE_STEPS_FOLDER))(gauge);
   }
 
   protected getGaugeProjectDefinition(): GaugeWebStepsProjectDefinition {
